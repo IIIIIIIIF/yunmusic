@@ -71,6 +71,7 @@
 					<header class="mui-bar mui-bar-nav music-header">
 					<a href="#offCanvasSide" class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
 					<h1 class="mui-title" style="color: white;">网易云音乐</h1>		
+					<span class="mui-icon mui-icon-search mui-pull-right" style="color: white;"></span>
 					</header>
 					
 					<div class="mui-content">
@@ -88,10 +89,8 @@
 					            <div class="weui-navbar__item remen" data-name="remen">
 					              	  热门歌手
 					            </div>
-					        </div>	
-					       
-				    	</div>
-				    	
+					        </div>						       
+				    	</div>				    	
 				    	<!--时下流行-->	
 				    	<div class="mui-scroll-wrapper" id="pullrefresh" style="top:88px;">
 							<div class="mui-scroll">
@@ -207,6 +206,13 @@
 			      var id=e.target.offsetParent.dataset.id;
 			      mui.openWindow({
 						url:'gedanList.html?id='+id,
+					});
+			});
+			/*搜索*/
+			mui(document.body).on('tap', '.mui-icon-search', function(e) {			    
+			      mui.openWindow({
+						url:"search.html",
+						id:"search"
 					});
 			});
 		</script>

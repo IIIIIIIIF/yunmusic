@@ -176,17 +176,26 @@ var getGedanList=function($,id){
 var getMusic=function($,id){
 	var url=nginxUrl+'/song/url?id='+id
 	musicAjax($,url,function(data){
-		console.log(data);
+	//	console.log(data);
 		if(data.code==200){
-			
+			getMusicStatus($,id,data)	
+		}	
+	})
+}
+/*查看音乐是否可用*/
+var getMusicStatus=function($,id,data){
+	var url=nginxUrl+'/check/music?id='+id
+	musicAjax($,url,function(res){
+	//	console.log(res);
+		if(res.success==true){
 			audioEle.setAttribute("src", data.data[0].url);
 			audioEle.load();
 			musicApp.playimg="imgs/playStop.png";
 			document.body.appendChild(audioEle);
+		}else{
+			mui.toast(res.message)
 		}
-		
 	})
 }
-
 
 
