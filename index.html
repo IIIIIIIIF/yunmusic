@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/moren.css" rel="stylesheet" />
+		<link href="css/weui.css" rel="stylesheet" />		
+		<link href="css/music.css" rel="stylesheet" />
+		<style type="text/css">
+			html,
+			body {
+				background-color: #efeff4;
+			}
+
+			p {
+				text-indent: 22px;
+			}
+
+			span.mui-icon {
+				font-size: 14px;
+				color: #007aff;
+				margin-left: -15px;
+				padding-right: 10px;
+			}
+
+			.mui-off-canvas-left {
+				color: #fff;
+			}
+
+			.title {
+				margin: 35px 15px 10px;
+			}
+
+			.title+.content {
+				margin: 10px 15px 35px;
+				color: #bbb;
+				text-indent: 1em;
+				font-size: 14px;
+				line-height: 24px;
+			}
+
+			input {
+				color: #000;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+			<!--侧滑菜单部分-->
+			<aside id="offCanvasSide" class="mui-off-canvas-left">
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll sideLogin">
+							<button v-if="loginStatus" type="button" class="mui-btn music-header">登录</button>
+							<div class="userinfo" id="userinfo" v-else>
+								<img width="100px" height="100px" :src="avatarUrl"/>
+								<p>{{username}}</p>
+							</div>
+							
+					</div>
+				</div>
+			</aside>
+			<!--主界面部分-->
+			<div class="mui-inner-wrap">				
+					<!-- off-canvas backdrop -->
+					<div class="mui-off-canvas-backdrop"></div>	
+					<header class="mui-bar mui-bar-nav music-header">
+					<a href="#offCanvasSide" class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
+					<h1 class="mui-title" style="color: white;">网易云音乐</h1>		
+					</header>
+					
+					<div class="mui-content">
+						<div class="weui-tab" id="t2" style="height:44px;">
+					        <div class="weui-navbar" id="navbar" :class="tabClass">
+					            <div class="weui-navbar__item nowTime" data-name="nowTime">
+					           		   时下流行
+					            </div>
+					            <div class="weui-navbar__item gedan" data-name="gedan">
+					            	    歌单
+					            </div>
+					            <div class="weui-navbar__item panghang" data-name="panghang">
+					              	  排行榜
+					            </div>
+					            <div class="weui-navbar__item remen" data-name="remen">
+					              	  热门歌手
+					            </div>
+					        </div>	
+					       
+				    	</div>
+				    	
+				    	<!--时下流行-->	
+				    	<div class="mui-scroll-wrapper" id="pullrefresh" style="top:88px;">
+							<div class="mui-scroll">
+							
+				    		<div class="mui-slider" style="top:10px">
+							  <div class="mui-slider-group mui-slider-loop">
+							    <!--支持循环，需要重复图片节点-->
+							    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img :src="lastBanners.imageUrl" /></a></div>
+							  	<template v-for="item in banners">
+							    	<div class="mui-slider-item"><a href="#"><img :src="item.imageUrl" /></a></div>
+							    </template>	    	
+							    <!--支持循环，需要重复图片节点-->
+							    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img :src="firstBanners.imageUrl" /></a></div>
+							  </div>
+							   <!-- 指示点 -->
+							<div class="mui-slider-indicator"  style="position:absolute;bottom:0.2rem;">
+								<div class="mui-indicator mui-active"></div>
+								<div class="mui-indicator" v-for="value in length"></div>
+							</div>
+							</div>
+				    	
+				    		<!--推荐歌单-->
+				    			<div class="gedanBox">
+				    			    <div class="tuijian-top">
+				    			    	<p style="font-size: 20px;">推荐歌单</p>
+				    			    	<p>更多</p>
+				    			    </div>
+				    			    <div class="tuijian-bottom">
+				    			    	<template v-for="item in RecommendResource">
+					    			    	<div class="tb-box" :data-Id="item.id">
+					    			    		<span class="tb-one" style="font-size: 0.9rem;">
+					    			    			{{item.playcount | capitalize}}
+					    			    		</span>
+					    			    		<img :src="item.picUrl" class="tb-img"/>
+					    			    		<span style="font-size: 0.8rem;">{{item.name | namefilter}}</span>
+					    			    	</div>
+										</template>
+				    			    </div>
+				    			</div>
+				    		<!--推荐歌单-->
+				    		<!--推荐电台-->
+				    			<div class="gedanBox">
+				    			    <div class="tuijian-top">
+				    			    	<p style="font-size: 20px;">主播电台</p>
+				    			    	<p>更多</p>
+				    			    </div>
+				    			    <div class="tuijian-bottom">
+				    			    	<template v-for="item in RecommendRDjprogram">
+					    			    	<div class="tb-box">
+					    			    		<img :src="item.picUrl" class="tb-img"/>
+					    			    		<span style="font-size: 0.8rem;">{{item.copywriter | namefilter}}</span>
+					    			    	</div>
+										</template>
+				    			    </div>
+				    			</div>
+				    		<!--推荐歌曲-->
+				    		
+							</div>
+						</div>
+				    	<!--时下流行-->
+					</div>
+			</div>
+			
+		</div>
+		
+		<script src="js/mui.js"></script>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/webviewGroup.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+			//侧滑容器父节点
+			var offCanvasWrapper = mui('#offCanvasWrapper');
+			//主界面容器
+			var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
+			//菜单容器
+			//移动效果是否为整体移动
+			var moveTogether = false;
+			//侧滑容器的class列表，增加.mui-slide-in即可实现菜单移动、主界面不动的效果；
+			var classList = offCanvasWrapper[0].classList;
+			classList.add("mui-slide-in");
+			//主界面和侧滑菜单界面均支持区域滚动；
+		
+
+			(function($) {
+				loginStatus($);	
+				getBanner($);
+				getRecommendResource($);
+				getRecommendmusic($)
+			})(mui);
+			
+			mui('.mui-scroll-wrapper').scroll({
+				deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+			});
+			
+			mui(document.body).on('tap', '.mui-btn', function(e) {
+			    mui.openWindow({
+							url:"login.html",
+							id:"login"
+						})
+			});
+			
+			mui(document.body).on('tap', '.weui-navbar__item', function(e) {
+			    var dataName=e.target.dataset.name;
+			    offCanvasWrapperApp.tabClass=dataName;		    
+			});
+			
+			/*点击歌单，携带id跳转*/
+			mui(document.body).on('tap', '.tb-box', function(e) {
+			      var id=e.target.offsetParent.dataset.id;
+			      mui.openWindow({
+						url:'gedanList.html?id='+id,
+					});
+			});
+		</script>
+		<script type="text/javascript">
+			Vue.filter('capitalize', function (value) {
+			  if (!value) return ''
+			  value = value.toString()
+			  return value.substring(0,value.length-4)+"万"
+			})
+			
+			var offCanvasWrapperApp=new Vue({
+				el:"#offCanvasWrapper",
+				data:{
+					loginStatus:true,
+					username:"",
+					avatarUrl:"",			
+					/*选项卡*/
+					tabClass:"nowTime",	
+					/*选项卡*/
+					/*轮播*/
+					firstBanners:"",
+					banners:[],
+					lastBanners:"",
+					length:"",
+					/*轮播*/
+					/*推荐歌单*/
+					RecommendResource:[],
+					/*推荐歌单*/
+					/*电台*/
+					RecommendRDjprogram:[]
+					/*电台*/
+				},
+				filters: {	  
+					namefilter:function(value){
+						if(!value){
+				    	return ""
+				    	}
+						return value.substring(0,14)+"..."
+						
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

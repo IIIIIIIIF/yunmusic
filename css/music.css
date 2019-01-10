@@ -1,0 +1,204 @@
+.music-header{
+	background: #C62F2F;
+}
+.mui-control-content {
+				background-color: white;
+				min-height: 215px;
+			}
+.mui-control-content .mui-loading {
+	margin-top: 50px;
+}
+.sideLogin{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: center;
+}
+.userinfo{
+	width: 50%;
+	height: 200px;
+}
+div.nowTime .nowTime,
+div.gedan .gedan,
+div.panghang .panghang,
+div.remen .remen{
+		background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+	    border-bottom: 3px solid #C62F2F;
+	    color: #C62F2F;
+	}
+.gedanBox{
+	width: 100%;
+	margin-top: 20px;
+	display: flex;
+	flex-flow: column;
+	justify-content: flex-start;
+}
+.tuijian-top{
+	width: 100%;
+	padding: 0 10px 0 10px;
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+}
+.tuijian-bottom{
+	width: 100%;
+	display: flex;
+	flex-flow: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.tb-box{
+	width: 30%;
+	height: 160px;
+	margin-top: 10px;
+	position: relative;
+	display: flex;
+	flex-flow: column;
+	
+}
+.tb-one{
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: #FFFFFF;
+	font-weight: 700;
+	width: 100%;
+	height: 30px;
+	background: black;
+	opacity: 0.5;
+	z-index: 20;
+	text-align: right;
+	line-height: 30px;
+	padding-right: 10px;
+}
+.tb-img{
+	width: 100%;
+	height: 80%;
+}
+.mui-slider-indicator .mui-active.mui-indicator{
+	background: #C62F2F;
+}
+.header{
+	width: 100%;
+	height: 200px;
+	
+	display: flex;
+	flex-flow: column;
+}
+.header .headertop{
+	width: 100%;
+	height: 50px;
+	z-index: 1;
+
+	font-size: 26px;
+	display: flex;
+	flex-flow: row;
+	align-items: center;
+}
+.header .headerBottom{
+	display: flex;
+	flex-flow: row;
+	justify-content: space-around;
+	align-items: center;
+	z-index: 1;
+	
+}
+.hb-text{
+	width: 60%;
+	height: 160px;	
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+}
+.hb-user{
+	display: flex;
+	flex-flow: row;
+	align-items: center;
+	justify-content: center;
+}
+.hb-img{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+.headerbg{
+	width: 100%;
+	height: 200px;
+	position:absolute;
+	left:0;
+	top:0;
+	background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;  
+    -webkit-filter: blur(30px);
+    -moz-filter: blur(30px);
+    -o-filter: blur(30px);
+    -ms-filter: blur(30px);
+    filter: blur(30px);
+}
+.allPlay{
+	background: #FFFFFF;
+	z-index: 1;
+	border-bottom: 1 solid #A6A4A5;
+	text-indent: 20px;
+}
+.scrollList{
+	margin-bottom: 60px;
+}
+.M-box{
+	display: flex;
+	flex-flow: row;
+	width: 100%;
+	height: 50px;
+	
+}
+.M-box .M-index{
+	width: 50px;
+	height: 100%;
+	text-align: center;
+	line-height: 50px;
+}
+.M-box .M-abs{
+	width: 100%;
+	border-bottom: 1px solid #E0E0E0;
+}
+.MusicPlay{
+	background: #FFFFFF;
+	width: 100%;
+	height: 60px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.mp-left{
+	display: flex;
+	flex-flow: row;
+	padding-left: 10px;
+	height: 50px;
+	
+}
+.mp-left .M-abs{
+	padding-left: 10px;
+}
+.mp-img{
+	width: 50px;
+	height: 50px;
+}
+.mp-right{
+	display: flex;
+	flex-flow: row;
+	padding-right: 20px;
+}
+.mrimg{
+	width: 30px;
+	height: 30px;
+	margin-right: 10px;
+}

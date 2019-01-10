@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/moren.css" rel="stylesheet" />
+		<link href="css/weui.css" rel="stylesheet" />		
+		<link href="css/music.css" rel="stylesheet" />
+		<style type="text/css">
+			html,
+			body {
+				background-color: #efeff4;
+			}
+
+			
+		</style>
+	</head>
+	<body>
+		<div class="mui-content" id="gedanList">
+			<div class="header">
+				<div class="headerbg" :style="styleobj"></div>
+				<div class="headertop">
+			    	<a class="Aback mui-icon mui-icon-left-nav mui-pull-left"></a>
+			    	<span id="jiantou">
+			    		歌单
+			    	</span>
+			    </div>
+			    <div class="headerBottom">
+			    	<div class="tb-box">
+    			    		<span class="tb-one" style="font-size: 0.9rem;">
+    			    			{{playCount | capitalize}}
+    			    		</span>
+    			    		<img :src="picUrl" class="tb-img"/>  			    		
+ 					</div>
+ 					<div class="hb-text">
+ 						<span id="hb-title">
+ 							{{name}}
+ 						</span>
+ 						<div class="hb-user">
+ 							<img :src="avatarUrl" class="hb-img"/>
+ 							<span id="hb-name">
+ 								{{nickname}}
+ 							</span>
+ 						</div>
+ 					</div>
+			    </div>
+			</div>
+		  	<div class="allPlay">
+		  		播放全部(共{{trackCount}}首)
+		  	</div>
+		  	<div class="scrollList">
+		  		<template v-for="(item,index) in tracks">
+		  		<div class="M-box">
+		  			<div class="M-index">
+		  				{{index+1}}
+		  			</div>
+			  		<div class="M-abs" :data-Id="item.ar[0].id">
+			  			<p>{{item.name}}</p>
+			  			<p>{{item.ar[0].name}}</p>
+			  		</div>
+		  		</div>
+				</template>
+		  	</div>
+		</div>
+		
+		<div class="MusicPlay" id="musicBox">
+			<div class="mp-left">
+				
+		  			<img class="mp-img" src="NeteaseCloudMusicApi/docs/favicon.ico"/>
+			  		<div class="M-abs">
+			  			<p>告白气球</p>
+			  			<p>周杰伦</p>
+			  		</div>
+		  		
+			</div>
+			<div class="mp-right">
+				<img class="mrimg songMenu" src="imgs/songMenu.png"/>
+				<img class="mrimg musicControl" :src="playimg"/>
+				<!--<audio :src="playSrc" controls="controls" :autoplay="autoplay"></audio>-->
+			</div>
+		</div>
+		<script src="js/mui.js"></script>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/webviewGroup.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			var gedanid=null;
+			var audioEle = document.createElement("AUDIO");
+			gedanid=GetQueryString("id");
+			mui.init({
+				swipeBack:true//启用右滑关闭功能				
+			});
+			(function($) {
+				getGedanList($,gedanid);
+				
+			})(mui);
+			mui(document.body).on('tap', '.Aback', function(e) {
+			    mui.openWindow({
+							url:"index.html",
+							id:"index"
+						})
+			});
+			mui(document.body).on('tap', '.M-box', function(e) {
+				  
+			    var dataId=e.target.parentNode.dataset.id;
+			  	//console.log(dataId);
+			  	getMusic(mui,33894312);
+			  	
+			});
+			mui(document.body).on('tap', '.musicControl', function(e) {		
+				if(musicApp.playimg=="imgs/playNow.png"){
+					/*此时音乐播放*/
+					 musicApp.playimg="imgs/playStop.png";
+					 audioEle.play();
+				}else{
+					/*此时音乐暂停*/
+					 musicApp.playimg="imgs/playNow.png";
+					 audioEle.pause();
+				}
+				 
+			});
+		</script>
+		<script type="text/javascript">
+			Vue.filter('capitalize', function (value) {
+			  if (!value) return ''
+			  value = value.toString()
+			  return value.substring(0,value.length-4)+"万"
+			})
+			var gedanApp=new Vue({
+				el:"#gedanList",
+				data:{
+					styleobj:{
+						background: ''
+					},
+					picUrl:"",
+					playCount:"",
+					name:"加载中",
+					avatarUrl:"加载中",
+					nickname:"加载中",
+					trackCount:"",
+					
+					/*歌曲列表*/
+					tracks:[]
+					/*歌曲列表*/
+				}
+			})
+			var musicApp=new Vue({
+				el:"#musicBox",
+				data:{
+					playimg:"imgs/playNow.png",
+					playSrc:"",
+					autoplay:false
+				}
+			})
+		</script>
+	</body>
+</html>
