@@ -83,6 +83,7 @@
 				<!--<audio :src="playSrc" controls="controls" :autoplay="autoplay"></audio>-->
 			</div>
 		</div>
+		<audio id="musicTool"></audio>
 		<script src="js/mui.js"></script>
 		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/webviewGroup.js" type="text/javascript" charset="utf-8"></script>
@@ -90,7 +91,7 @@
 		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
 			var gedanid=null;
-			var audioEle = document.createElement("AUDIO");
+			var audioEle = document.getElementById("musicTool");
 			gedanid=GetQueryString("id");
 			mui.init({
 				swipeBack:true//启用右滑关闭功能				
@@ -109,10 +110,10 @@
 				  
 			    var dataId=e.target.parentNode.dataset.id;
 			  	//console.log(dataId);
-			  	getMusic(mui,dataId);
+			  	getMusic(mui,33894312);
 			  	
 			});
-			mui(document.body).on('tap', '.musicControl', function(e) {		
+			mui(document.body).on('tap', '.musicControl', function(e) {
 				if(musicApp.playimg=="imgs/playNow.png"){
 					/*此时音乐播放*/
 					 musicApp.playimg="imgs/playStop.png";
@@ -121,8 +122,7 @@
 					/*此时音乐暂停*/
 					 musicApp.playimg="imgs/playNow.png";
 					 audioEle.pause();
-				}
-				 
+				}				 
 			});
 		</script>
 		<script type="text/javascript">

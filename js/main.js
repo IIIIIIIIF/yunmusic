@@ -158,7 +158,7 @@ var getRecommendmusic=function($){
 var getGedanList=function($,id){
 	var url=nginxUrl+'/playlist/detail?id='+id
 	musicAjax($,url,function(data){
-		console.log(data);
+	//	console.log(data);
 		if(data.code==200){
 			gedanApp.styleobj.background="url("+data.playlist.coverImgUrl+")";
 			gedanApp.picUrl=data.playlist.coverImgUrl
@@ -186,12 +186,12 @@ var getMusic=function($,id){
 var getMusicStatus=function($,id,data){
 	var url=nginxUrl+'/check/music?id='+id
 	musicAjax($,url,function(res){
-	//	console.log(res);
+		console.log(res);
 		if(res.success==true){
 			audioEle.setAttribute("src", data.data[0].url);
-			audioEle.load();
+			audioEle.play();
 			musicApp.playimg="imgs/playStop.png";
-			document.body.appendChild(audioEle);
+		
 		}else{
 			mui.toast(res.message)
 		}

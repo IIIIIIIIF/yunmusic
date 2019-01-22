@@ -188,19 +188,16 @@
 			mui('.mui-scroll-wrapper').scroll({
 				deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
 			});
-			
 			mui(document.body).on('tap', '.mui-btn', function(e) {
 			    mui.openWindow({
 							url:"login.html",
 							id:"login"
 						})
 			});
-			
 			mui(document.body).on('tap', '.weui-navbar__item', function(e) {
 			    var dataName=e.target.dataset.name;
-			    offCanvasWrapperApp.tabClass=dataName;		    
-			});
-			
+			    offCanvasWrapperApp.tabClass=dataName;
+			});		
 			/*点击歌单，携带id跳转*/
 			mui(document.body).on('tap', '.tb-box', function(e) {
 			      var id=e.target.offsetParent.dataset.id;
