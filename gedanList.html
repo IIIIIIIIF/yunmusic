@@ -97,8 +97,7 @@
 				swipeBack:true//启用右滑关闭功能				
 			});
 			(function($) {
-				getGedanList($,gedanid);
-				
+				getGedanList($,gedanid);				
 			})(mui);
 			mui(document.body).on('tap', '.Aback', function(e) {
 			    mui.openWindow({
@@ -110,8 +109,7 @@
 				  
 			    var dataId=e.target.parentNode.dataset.id;
 			  	//console.log(dataId);
-			  	getMusic(mui,33894312);
-			  	
+			  	getMusic(mui,33894312);			  	
 			});
 			mui(document.body).on('tap', '.musicControl', function(e) {
 				if(musicApp.playimg=="imgs/playNow.png"){

@@ -188,14 +188,23 @@ var getMusicStatus=function($,id,data){
 	musicAjax($,url,function(res){
 		console.log(res);
 		if(res.success==true){
+			console.log(data.data);
 			audioEle.setAttribute("src", data.data[0].url);
-			audioEle.play();
-			musicApp.playimg="imgs/playStop.png";
-		
+			musicApp.playimg="imgs/playStop.png";	
+			audioEle.play();		
 		}else{
 			mui.toast(res.message)
 		}
 	})
 }
 
-
+/*获取歌单分类*/
+var getCatlist=function($){
+	var url=nginxUrl+'/playlist/catlist'
+	musicAjax($,url,function(data){
+		console.log(data);
+		if(data.code==200){
+			
+		}	
+	})
+}

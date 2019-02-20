@@ -92,7 +92,7 @@
 					        </div>						       
 				    	</div>				    	
 				    	<!--时下流行-->	
-				    	<div class="mui-scroll-wrapper" id="pullrefresh" style="top:88px;">
+				    	<div class="mui-scroll-wrapper" id="pullrefresh" style="top:88px;" v-if="tabShowStatusnowTime">
 							<div class="mui-scroll">
 							
 				    		<div class="mui-slider" style="top:10px">
@@ -151,6 +151,50 @@
 							</div>
 						</div>
 				    	<!--时下流行-->
+				    	
+				    	<!--歌单-->
+				    	<div class="mui-scroll-wrapper" id="pullrefresh" style="top:88px;" v-else-if="tabShowStatusgedan">
+							<div class="mui-scroll">
+								<div class="header">								
+								    <div class="headerBottom">
+								    	<div class="tb-box">				    			    		
+					    			    		<img src="NeteaseCloudMusicApi/docs/favicon.ico" class="tb-img"/>  			    		
+					 					</div>
+					 					<div class="hb-text">
+					 						<span id="hb-title">
+					 							精品歌单 >
+					 						</span>
+					 						<div class="hb-user">	
+					 							<span id="hb-name" style="font-size: 3.5vw;">
+					 								{{description}}
+					 							</span>
+					 						</div>
+					 					</div>
+								    </div>
+								</div>
+								
+								<div class="allPlay">
+		  							全部歌单
+		  						</div>
+							</div>
+						</div>
+				    	<!--歌单-->
+				    	
+				    	<!--排行榜-->
+				    	<div class="mui-scroll-wrapper" id="pullrefresh" style="top:88px;" v-else-if="tabShowStatuspaihang">
+							<div class="mui-scroll">
+								排行榜
+							</div>
+						</div>
+				    	<!--排行榜-->
+				    	
+				    	<!--热门歌手-->
+				    	<div class="mui-scroll-wrapper" id="pullrefresh" style="top:88px;" v-else="tabShowStatusremen">
+							<div class="mui-scroll">
+								热门歌手
+							</div>
+						</div>	
+				    	<!--热门歌手-->
 					</div>
 			</div>
 			
@@ -182,7 +226,8 @@
 				loginStatus($);	
 				getBanner($);
 				getRecommendResource($);
-				getRecommendmusic($)
+				getRecommendmusic($);
+				getCatlist($);
 			})(mui);
 			
 			mui('.mui-scroll-wrapper').scroll({
@@ -197,8 +242,36 @@
 			mui(document.body).on('tap', '.weui-navbar__item', function(e) {
 			    var dataName=e.target.dataset.name;
 			    offCanvasWrapperApp.tabClass=dataName;
+			    switch (dataName){
+			    	case "nowTime":
+			    	offCanvasWrapperApp.tabShowStatusnowTime=true;
+					offCanvasWrapperApp.tabShowStatusgedan=false;
+					offCanvasWrapperApp.tabShowStatuspaihang=false;
+					offCanvasWrapperApp.tabShowStatusremen=false;
+			    		break;
+			    	case "gedan":
+			    	offCanvasWrapperApp.tabShowStatusnowTime=false;
+					offCanvasWrapperApp.tabShowStatusgedan=true;
+					offCanvasWrapperApp.tabShowStatuspaihang=false;
+					offCanvasWrapperApp.tabShowStatusremen=false;
+			    		break;
+			    	case "panghang":
+			    	offCanvasWrapperApp.tabShowStatusnowTime=false;
+					offCanvasWrapperApp.tabShowStatusgedan=false;
+					offCanvasWrapperApp.tabShowStatuspaihang=true;
+					offCanvasWrapperApp.tabShowStatusremen=false;
+			    		break;
+			    	case "remen":
+			    	offCanvasWrapperApp.tabShowStatusnowTime=false;
+					offCanvasWrapperApp.tabShowStatusgedan=false;
+					offCanvasWrapperApp.tabShowStatuspaihang=false;
+					offCanvasWrapperApp.tabShowStatusremen=true;
+			    		break;
+			    	default:
+			    		break;
+			    }
 			});		
-			/*点击歌单，携带id跳转*/
+			/*点击推荐歌单，携带id跳转*/
 			mui(document.body).on('tap', '.tb-box', function(e) {
 			      var id=e.target.offsetParent.dataset.id;
 			      mui.openWindow({
@@ -227,7 +300,11 @@
 					username:"",
 					avatarUrl:"",			
 					/*选项卡*/
-					tabClass:"nowTime",	
+					tabClass:"gedan",	
+					tabShowStatusnowTime:false,
+					tabShowStatusgedan:true,
+					tabShowStatuspaihang:false,
+					tabShowStatusremen:false,
 					/*选项卡*/
 					/*轮播*/
 					firstBanners:"",
@@ -239,8 +316,14 @@
 					RecommendResource:[],
 					/*推荐歌单*/
 					/*电台*/
-					RecommendRDjprogram:[]
+					RecommendRDjprogram:[],
 					/*电台*/
+										
+					/*歌单选项卡*/
+					styleobj:{
+						background: ''
+					},
+					description:"穿梭于光影世界，感受百般人生。"
 				},
 				filters: {	  
 					namefilter:function(value){
