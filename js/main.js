@@ -208,3 +208,23 @@ var getCatlist=function($){
 		}	
 	})
 }
+/*获取热搜*/
+var getSearchhotlist=function($){
+	var url=nginxUrl+'/search/hot'
+	musicAjax($,url,function(data){
+	//	console.log(data);
+		if(data.code==200){
+			hotApp.hotlist=data.result.hots
+		}	
+	})
+}
+/*搜索结果*/
+var getSearchMultimatch=function($,key){
+	var url=nginxUrl+'/search/multimatch?keywords='+key
+	musicAjax($,url,function(data){
+		console.log(data);
+		if(data.code==200){
+		
+		}	
+	})
+}

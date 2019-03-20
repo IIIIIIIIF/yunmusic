@@ -6,8 +6,11 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<title></title>
+
 		<link href="css/mui.min.css" rel="stylesheet" />
-		<link href="css/moren.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/weui.css"/>
+		<link rel="stylesheet" type="text/css" href="css/weuix.css"/>
+		<link href="css/moren.css" rel="stylesheet" />	
 		<link href="css/music.css" rel="stylesheet" />
 		<style type="text/css">
 			
@@ -18,25 +21,71 @@
 		 <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		 <h1 class="mui-title" style="color: white;">搜索</h1>
 		</header>
-		<div class="mui-content">
-			
+		<div class="mui-content" id="searchBox">
+			<!--搜索框-->
+			<div class="weui-search-bar" id="searchBar" style="border:1px red solid;">
+			    <form class="weui-search-bar__form" action="#" style="border:1px blue solid;">
+			        <div class="weui-search-bar__box">
+			            <i class="weui-icon-search"></i>
+			            <input class="weui-search-bar__input" id="searchInput" v-model="searchText" @keyup.enter="onSearch" placeholder="搜索" required="" type="search" style="margin-bottom: 0;">
+			            <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+			        </div>
+			        <label class="weui-search-bar__label" id="searchText" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+			            <i class="weui-icon-search"></i>
+			            <span>搜索</span>
+			        </label>
+			    </form>
+			    <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+			</div>
+			<!--热搜-->
+			<div class="hotBox" id="hot-box">
+				<span>热门搜索</span>
+				<div class="hotbox-list">
+					<template v-for="item in hotlist">						
+						<span class="hotText" @click="hotTextClick($event)">{{item.first}}</span>
+					</template>
+					
+				</div>
+			</div>
 		</div>
 
 
 
 		<script src="js/mui.min.js"></script>
 		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/webviewGroup.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/webviewGroup.js" type="text/javascript" charset="utf-8"></script>	
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/zepto.weui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
 			mui.init({
 				swipeBack:false //启用右滑关闭功能
 			});
+			var hotApp=new Vue({
+				el:"#searchBox",
+				data:{
+					hotlist:[],
+					searchText:""
+				},
+				methods:{
+					hotTextClick:function(event){
+					//	console.log(event.currentTarget.innerHTML)	
+						getSearchMultimatch(mui,event.currentTarget.innerHTML)
+					},
+					onSearch:function(event){
+					
+						getSearchMultimatch(mui,this.searchText)
+						
+						return false
+					}
+				}
+			});
 			
 			(function($) {
-				
+				getSearchhotlist($)
 			})(mui);
+		
 		</script>
 
 	</body>

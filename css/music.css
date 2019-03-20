@@ -80,14 +80,16 @@ div.remen .remen{
 .mui-slider-indicator .mui-active.mui-indicator{
 	background: #C62F2F;
 }
-.header{
+.gedanheader{
 	width: 100%;
 	height: 200px;
 	
 	display: flex;
 	flex-flow: column;
+	justify-content: center;
+	
 }
-.header .headertop{
+.gedanheader .headertop{
 	width: 100%;
 	height: 50px;
 	z-index: 1;
@@ -97,7 +99,7 @@ div.remen .remen{
 	flex-flow: row;
 	align-items: center;
 }
-.header .headerBottom{
+.gedanheader .headerBottom{
 	display: flex;
 	flex-flow: row;
 	justify-content: space-around;
@@ -201,4 +203,20 @@ div.remen .remen{
 	width: 30px;
 	height: 30px;
 	margin-right: 10px;
+}
+/*搜索*/
+.hotbox-list{
+	display: flex;
+	flex-flow: row;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.hotText{
+	display: inline-block;
+	border-radius:10px;
+	background-color: gainsboro;
+	font-family: "微软雅黑";
+	font-size: 15px;
+	margin-top: 10px;
+	padding: 0 5px;
 }
