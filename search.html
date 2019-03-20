@@ -17,11 +17,14 @@
 		</style>
 	</head>
 	<body>
-		<header class="mui-bar mui-bar-nav music-header">
+		
+		<header class="mui-bar mui-bar-nav music-header" id="headerBox" v-if="show">
 		 <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		 <h1 class="mui-title" style="color: white;">搜索</h1>
-		</header>
+		</header>		
+
 		<div class="mui-content" id="searchBox">
+			
 			<!--搜索框-->
 			<div class="weui-search-bar" id="searchBar" style="border:1px red solid;">
 			    <form class="weui-search-bar__form" action="#" style="border:1px blue solid;">
@@ -62,15 +65,24 @@
 			mui.init({
 				swipeBack:false //启用右滑关闭功能
 			});
+			var headerbox=new Vue({
+				el:"#headerBox",
+				data:{
+					show:true
+				}
+			})
 			var hotApp=new Vue({
 				el:"#searchBox",
 				data:{
 					hotlist:[],
-					searchText:""
+					searchText:""	
 				},
 				methods:{
 					hotTextClick:function(event){
 					//	console.log(event.currentTarget.innerHTML)	
+						this.searchText=event.currentTarget.innerHTML;
+						
+						headerbox.show=false;
 						getSearchMultimatch(mui,event.currentTarget.innerHTML)
 					},
 					onSearch:function(event){
