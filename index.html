@@ -47,6 +47,11 @@
 			input {
 				color: #000;
 			}
+			
+			[v-cloak]{
+				display: none !important;
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -84,7 +89,7 @@
 					            <div class="weui-navbar__item gedan" data-name="gedan">
 					            	    歌单
 					            </div>
-					            <div class="weui-navbar__item panghang" data-name="panghang">
+					            <div class="weui-navbar__item paihang" data-name="paihang">
 					              	  排行榜
 					            </div>
 					            <div class="weui-navbar__item remen" data-name="remen">
@@ -156,7 +161,7 @@
 				    	<!--歌单-->
 				    	<div class="mui-scroll-wrapper" id="pullrefresh" style="top:88px;" v-else-if="tabShowStatusgedan">
 							<div class="mui-scroll">
-								<div class="gedanheader">								
+								<div v-cloak class="gedanheader">								
 								    <div class="headerBottom">
 								    	<div class="tb-box">				    			    		
 					    			    		<img src="NeteaseCloudMusicApi/docs/favicon.ico" class="tb-img"/>  			    		
@@ -184,7 +189,26 @@
 				    	<!--排行榜-->
 				    	<div class="mui-scroll-wrapper" id="pullrefresh" style="top:88px;" v-else-if="tabShowStatuspaihang">
 							<div class="mui-scroll">
-								排行榜
+								<div v-cloak class="TopBox">
+									<div class="OfficialTop">
+										<span id="officialText">
+											{{officialText}}
+										</span>
+										<div class="OfficialList">
+											
+										</div>
+										
+									</div>
+									
+									<div class="GlobalTop">
+										<span id="GlobalText">
+											{{GlobalText}}
+										</span>
+										<div class="GlobalList">
+											
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 				    	<!--排行榜-->
@@ -231,6 +255,7 @@
 				getRecommendResource($);
 				getRecommendmusic($);
 				getCatlist($);
+				getTopdetailList($)
 			})(mui);
 			
 			mui('.mui-scroll-wrapper').scroll({
@@ -258,7 +283,7 @@
 					offCanvasWrapperApp.tabShowStatuspaihang=false;
 					offCanvasWrapperApp.tabShowStatusremen=false;
 			    		break;
-			    	case "panghang":
+			    	case "paihang":
 			    	offCanvasWrapperApp.tabShowStatusnowTime=false;
 					offCanvasWrapperApp.tabShowStatusgedan=false;
 					offCanvasWrapperApp.tabShowStatuspaihang=true;
@@ -303,10 +328,10 @@
 					username:"",
 					avatarUrl:"",			
 					/*选项卡*/
-					tabClass:"gedan",	
+					tabClass:"paihang",	
 					tabShowStatusnowTime:false,
-					tabShowStatusgedan:true,
-					tabShowStatuspaihang:false,
+					tabShowStatusgedan:false,
+					tabShowStatuspaihang:true,
 					tabShowStatusremen:false,
 					/*选项卡*/
 					/*轮播*/
@@ -326,7 +351,12 @@
 					styleobj:{
 						background: ''
 					},
-					description:"穿梭于光影世界，感受百般人生。"
+					description:"穿梭于光影世界，感受百般人生。",
+					
+					/*排行榜*/
+					officialText:"官方榜",
+					GlobalText:"全球榜"
+					
 				},
 				filters: {	  
 					namefilter:function(value){

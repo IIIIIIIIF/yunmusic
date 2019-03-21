@@ -22,7 +22,7 @@
 }
 div.nowTime .nowTime,
 div.gedan .gedan,
-div.panghang .panghang,
+div.paihang .paihang,
 div.remen .remen{
 		background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
 	    border-bottom: 3px solid #C62F2F;
@@ -219,4 +219,11 @@ div.remen .remen{
 	font-size: 15px;
 	margin-top: 10px;
 	padding: 0 5px;
+}
+/*排行榜*/
+.TopBox{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin-top: 10px;
 }

@@ -13,7 +13,10 @@
 		<link href="css/moren.css" rel="stylesheet" />	
 		<link href="css/music.css" rel="stylesheet" />
 		<style type="text/css">
-			
+			/*防止出现大括号*/
+			[v-cloak] {
+			  opacity: 0 !important;
+			}
 		</style>
 	</head>
 	<body>
@@ -26,23 +29,33 @@
 		<div class="mui-content" id="searchBox">
 			
 			<!--搜索框-->
-			<div class="weui-search-bar" id="searchBar" style="border:1px red solid;">
-			    <form class="weui-search-bar__form" action="#" style="border:1px blue solid;">
+			<div class="weui-search-bar" id="searchBar">
+			    <form class="weui-search-bar__form" action="#">
 			        <div class="weui-search-bar__box">
 			            <i class="weui-icon-search"></i>
-			            <input class="weui-search-bar__input" id="searchInput" v-model="searchText" @keyup.enter="onSearch" placeholder="搜索" required="" type="search" style="margin-bottom: 0;">
+			            <input 
+			            class="weui-search-bar__input"
+			            id="searchInput" 
+			            v-model="searchText" 
+			            @keyup.enter="onSearch" 
+			            placeholder="搜索" 
+			            required="" 
+			            type="search" 
+			            style="margin-bottom: 0;"
+			            ref='input'
+			            >
 			            <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
 			        </div>
-			        <label class="weui-search-bar__label" id="searchText" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+			        <label ref='label' class="weui-search-bar__label" id="searchText" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
 			            <i class="weui-icon-search"></i>
-			            <span>搜索</span>
+			            <span v-cloak>{{placeholder}}</span>
 			        </label>
 			    </form>
 			    <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
 			</div>
 			<!--热搜-->
 			<div class="hotBox" id="hot-box">
-				<span>热门搜索</span>
+				<span v-cloak>{{hottextstatus}}</span>
 				<div class="hotbox-list">
 					<template v-for="item in hotlist">						
 						<span class="hotText" @click="hotTextClick($event)">{{item.first}}</span>
@@ -75,18 +88,25 @@
 				el:"#searchBox",
 				data:{
 					hotlist:[],
-					searchText:""	
+					searchText:"",
+					hottextstatus:"热门搜索",
+					placeholder:"搜索"
 				},
 				methods:{
 					hotTextClick:function(event){
 					//	console.log(event.currentTarget.innerHTML)	
-						this.searchText=event.currentTarget.innerHTML;
-						
+					//	this.searchText=event.currentTarget.innerHTML;	
+						this.placeholder=event.currentTarget.innerHTML
 						headerbox.show=false;
+						hotApp.hotlist=[];
+						hotApp.hottextstatus="综合";						
+						this.$refs.label.focus();
 						getSearchMultimatch(mui,event.currentTarget.innerHTML)
 					},
 					onSearch:function(event){
-					
+						headerbox.show=false;
+						hotApp.hotlist=[];
+						hotApp.hottextstatus="综合";		
 						getSearchMultimatch(mui,this.searchText)
 						
 						return false

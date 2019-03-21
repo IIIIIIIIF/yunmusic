@@ -143,7 +143,7 @@ var getRecommendmusic=function($){
 	xhrFields: { withCredentials: true },
 	headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},	              
 	success:function(data){
-		console.log(data);
+		//console.log(data);
 		if(data.code==200){
 			offCanvasWrapperApp.RecommendRDjprogram=data.result
 		}
@@ -186,9 +186,9 @@ var getMusic=function($,id){
 var getMusicStatus=function($,id,data){
 	var url=nginxUrl+'/check/music?id='+id
 	musicAjax($,url,function(res){
-		console.log(res);
+	//	console.log(res);
 		if(res.success==true){
-			console.log(data.data);
+	//		console.log(data.data);
 			audioEle.setAttribute("src", data.data[0].url);
 			musicApp.playimg="imgs/playStop.png";	
 			audioEle.play();		
@@ -202,7 +202,7 @@ var getMusicStatus=function($,id,data){
 var getCatlist=function($){
 	var url=nginxUrl+'/playlist/catlist'
 	musicAjax($,url,function(data){
-		console.log(data);
+//		console.log(data);
 		if(data.code==200){
 			
 		}	
@@ -221,6 +221,17 @@ var getSearchhotlist=function($){
 /*搜索结果*/
 var getSearchMultimatch=function($,key){
 	var url=nginxUrl+'/search/multimatch?keywords='+key
+	musicAjax($,url,function(data){
+	//	console.log(data);
+		if(data.code==200){
+		
+		}	
+	})
+}
+
+/*排行榜内容摘要*/
+var getTopdetailList=function($){
+	var url=nginxUrl+'/toplist/detail'
 	musicAjax($,url,function(data){
 		console.log(data);
 		if(data.code==200){
