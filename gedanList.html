@@ -15,13 +15,15 @@
 			body {
 				background-color: #efeff4;
 			}
-
+			[v-cloak]{
+				display: none !important;
+			}
 			
 		</style>
 	</head>
 	<body>
-		<div class="mui-content" id="gedanList">
-			<div class="header">
+		<div class="mui-content" id="gedanList" v-cloak>
+			<div class="gedanListheader">
 				<div class="headerbg" :style="styleobj"></div>
 				<div class="headertop">
 			    	<a class="Aback mui-icon mui-icon-left-nav mui-pull-left"></a>
@@ -42,7 +44,7 @@
  						</span>
  						<div class="hb-user">
  							<img :src="avatarUrl" class="hb-img"/>
- 							<span id="hb-name">
+ 							<span id="hb-name" style="margin-left: 10px;">
  								{{nickname}}
  							</span>
  						</div>
@@ -67,13 +69,13 @@
 		  	</div>
 		</div>
 		
-		<div class="MusicPlay" id="musicBox">
+			<div class="MusicPlay" id="musicBox" v-cloak>
 			<div class="mp-left">
 				
 		  			<img class="mp-img" src="NeteaseCloudMusicApi/docs/favicon.ico"/>
 			  		<div class="M-abs">
-			  			<p>告白气球</p>
-			  			<p>周杰伦</p>
+			  			<p>{{NowMusicName}}</p>
+			  			<p>{{NowSingName}}</p>
 			  		</div>
 		  		
 			</div>
@@ -152,7 +154,9 @@
 				data:{
 					playimg:"imgs/playNow.png",
 					playSrc:"",
-					autoplay:false
+					autoplay:false,
+					NowMusicName:"告白气球",
+					NowSingName:"周杰伦"
 				}
 			})
 		</script>

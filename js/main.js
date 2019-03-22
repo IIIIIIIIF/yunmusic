@@ -235,7 +235,7 @@ var getTopdetailList=function($){
 	musicAjax($,url,function(data){
 		console.log(data);
 		if(data.code==200){
-		
+			offCanvasWrapperApp.officialList=data.list
 		}	
 	})
 }

@@ -191,13 +191,29 @@
 							<div class="mui-scroll">
 								<div v-cloak class="TopBox">
 									<div class="OfficialTop">
-										<span id="officialText">
+										<span id="officialText" style="margin-left: 10px;">
 											{{officialText}}
 										</span>
-										<div class="OfficialList">
-											
-										</div>
-										
+										<div class="OfficialList">				
+											<template v-for="item in officialList">
+												<div class="official-L-box">
+													<div class="official-img-box" :data-Id="item.id">
+						    			    		
+						    			    		<img :src="item.coverImgUrl" class="officialimg"/>
+						    			    		<span class="Official-one" style="font-size: 0.9rem;">
+						    			    			{{item.updateFrequency}}
+						    			    		</span>
+						    			    		</div>
+							    			    	<div class="OfficialtopThree">
+							    			    		<template v-for="items,index in item.tracks">
+							    			    			<div id="topthree">
+							    			    				{{index+1}} {{items.second | substring}}-{{items.first | substring}}
+							    			    			</div>
+							    			    		</template>
+							    			    	</div>
+												</div>    	
+											</template>
+										</div>										
 									</div>
 									
 									<div class="GlobalTop">
@@ -306,6 +322,7 @@
 						url:'gedanList.html?id='+id,
 					});
 			});
+
 			/*搜索*/
 			mui(document.body).on('tap', '.mui-icon-search', function(e) {			    
 			      mui.openWindow({
@@ -320,7 +337,7 @@
 			  value = value.toString()
 			  return value.substring(0,value.length-4)+"万"
 			})
-			
+		
 			var offCanvasWrapperApp=new Vue({
 				el:"#offCanvasWrapper",
 				data:{
@@ -355,16 +372,25 @@
 					
 					/*排行榜*/
 					officialText:"官方榜",
-					GlobalText:"全球榜"
+					GlobalText:"全球榜",
+					officialList:[],
+					GlobalList:[]
 					
 				},
 				filters: {	  
 					namefilter:function(value){
-						if(!value){
-				    	return ""
-				    	}
+						if(!value)return ""
 						return value.substring(0,14)+"..."
 						
+					},
+					substring:function (value) {
+						  if (!value) return ''
+						  value = value.toString();
+						//  console.log(value.length)
+						  if(value.length>9){
+						  	return value.substring(0,9)+"..."
+						  }
+						  return value
 					}
 				}
 			})
