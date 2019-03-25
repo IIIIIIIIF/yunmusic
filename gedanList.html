@@ -67,33 +67,21 @@
 		  		</div>
 				</template>
 		  	</div>
-		</div>
+		   	
+		  	</div>
 		
-			<div class="MusicPlay" id="musicBox" v-cloak>
-			<div class="mp-left">
-				
-		  			<img class="mp-img" src="NeteaseCloudMusicApi/docs/favicon.ico"/>
-			  		<div class="M-abs">
-			  			<p>{{NowMusicName}}</p>
-			  			<p>{{NowSingName}}</p>
-			  		</div>
-		  		
+			<div id="musicApp">
+					<Audio-Tool :nowmusicname="nowmusicname" :nowsingname="nowsingname" :playimg="playimg"></Audio-Tool>
 			</div>
-			<div class="mp-right">
-				<img class="mrimg songMenu" src="imgs/songMenu.png"/>
-				<img class="mrimg musicControl" :src="playimg"/>
-				<!--<audio :src="playSrc" controls="controls" :autoplay="autoplay"></audio>-->
-			</div>
-		</div>
-		<audio id="musicTool"></audio>
 		<script src="js/mui.js"></script>
 		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/audio.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/webviewGroup.js" type="text/javascript" charset="utf-8"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" charset="utf-8">
 			var gedanid=null;
-			var audioEle = document.getElementById("musicTool");
+			
 			gedanid=GetQueryString("id");
 			mui.init({
 				swipeBack:true//启用右滑关闭功能				
@@ -113,17 +101,7 @@
 			  	//console.log(dataId);
 			  	getMusic(mui,33894312);			  	
 			});
-			mui(document.body).on('tap', '.musicControl', function(e) {
-				if(musicApp.playimg=="imgs/playNow.png"){
-					/*此时音乐播放*/
-					 musicApp.playimg="imgs/playStop.png";
-					 audioEle.play();
-				}else{
-					/*此时音乐暂停*/
-					 musicApp.playimg="imgs/playNow.png";
-					 audioEle.pause();
-				}				 
-			});
+			
 		</script>
 		<script type="text/javascript">
 			Vue.filter('capitalize', function (value) {
@@ -143,20 +121,10 @@
 					avatarUrl:"加载中",
 					nickname:"加载中",
 					trackCount:"",
-					
+						
 					/*歌曲列表*/
 					tracks:[]
 					/*歌曲列表*/
-				}
-			})
-			var musicApp=new Vue({
-				el:"#musicBox",
-				data:{
-					playimg:"imgs/playNow.png",
-					playSrc:"",
-					autoplay:false,
-					NowMusicName:"告白气球",
-					NowSingName:"周杰伦"
 				}
 			})
 		</script>

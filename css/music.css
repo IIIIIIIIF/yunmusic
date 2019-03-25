@@ -1,5 +1,6 @@
 .music-header{
 	background: #C62F2F;
+	z-index: 1000;
 }
 .mui-control-content {
 				background-color: white;
