@@ -51,7 +51,9 @@
 			[v-cloak]{
 				display: none !important;
 			}
-			
+			.mui-scroll{
+				margin-bottom: 60px;
+			}
 		</style>
 	</head>
 	<body>
@@ -80,7 +82,7 @@
 					<span class="mui-icon mui-icon-search mui-pull-right" style="color: white;"></span>
 					</header>
 					
-					<div class="mui-content">
+					<div class="mui-content" style="margin-bottom: 60px;">
 						<div class="weui-tab" id="t2" style="height:44px;">
 					        <div class="weui-navbar" id="navbar" :class="tabClass">
 					            <div class="weui-navbar__item nowTime" data-name="nowTime">
@@ -241,7 +243,7 @@
 			
 		</div>
 		<div id="musicApp">
-					<Audio-Tool :nowmusicname="nowmusicname" :nowsingname="nowsingname" :playimg="playimg"></Audio-Tool>
+			<Audio-Tool :nowmusicname="nowmusicname" :nowsingname="nowsingname" :playimg="playimg"></Audio-Tool>
 		</div>
 		<script src="js/mui.js"></script>
 		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
@@ -264,16 +266,9 @@
 			var classList = offCanvasWrapper[0].classList;
 			classList.add("mui-slide-in");
 			//主界面和侧滑菜单界面均支持区域滚动；
-		
-
-			(function($) {
-				loginStatus($);	
-				getBanner($);
-				getRecommendResource($);
-				getRecommendmusic($);
-				getCatlist($);
-				getTopdetailList($)
-			})(mui);
+			
+			//加载次数
+			var nowTimenum,gedannum,paihangnum,remennum=0;
 			
 			mui('.mui-scroll-wrapper').scroll({
 				deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
@@ -289,24 +284,40 @@
 			    offCanvasWrapperApp.tabClass=dataName;
 			    switch (dataName){
 			    	case "nowTime":
+			    	if(nowTimenum!=1){
+			    		getBanner(mui);
+						getRecommendResource(mui);
+						getRecommendmusic(mui);
+			    	}
 			    	offCanvasWrapperApp.tabShowStatusnowTime=true;
 					offCanvasWrapperApp.tabShowStatusgedan=false;
 					offCanvasWrapperApp.tabShowStatuspaihang=false;
 					offCanvasWrapperApp.tabShowStatusremen=false;
 			    		break;
 			    	case "gedan":
+			    	if(	gedannum!=1){
+			    	
+						getCatlist(mui);
+			    	}
 			    	offCanvasWrapperApp.tabShowStatusnowTime=false;
 					offCanvasWrapperApp.tabShowStatusgedan=true;
 					offCanvasWrapperApp.tabShowStatuspaihang=false;
 					offCanvasWrapperApp.tabShowStatusremen=false;
 			    		break;
 			    	case "paihang":
+			    	if(paihangnum!=1){
+			    		
+						getTopdetailList(mui)
+			    	}
 			    	offCanvasWrapperApp.tabShowStatusnowTime=false;
 					offCanvasWrapperApp.tabShowStatusgedan=false;
 					offCanvasWrapperApp.tabShowStatuspaihang=true;
 					offCanvasWrapperApp.tabShowStatusremen=false;
 			    		break;
 			    	case "remen":
+			    	if(remennum!=1){
+			    		
+			    	}
 			    	offCanvasWrapperApp.tabShowStatusnowTime=false;
 					offCanvasWrapperApp.tabShowStatusgedan=false;
 					offCanvasWrapperApp.tabShowStatuspaihang=false;
@@ -394,7 +405,32 @@
 						  return value
 					}
 				}
-			})
+			});
+			
+			(function($) {
+				 loginStatus($);	
+				 switch (offCanvasWrapperApp.tabClass){
+			    	case "nowTime":
+			    	nowTimenum=1
+			    	getBanner($);
+					getRecommendResource($);
+					getRecommendmusic($);
+			    		break;
+			    	case "gedan":
+			    	gedannum=1
+					getCatlist($);
+			    		break;
+			    	case "paihang":
+			    	paihangnum=1
+					getTopdetailList($)
+			    		break;
+			    	case "remen":
+			    	remennum=1
+			    		break;
+			    	default:
+			    		break;
+			   }
+			})(mui);
 		</script>
 	</body>
 </html>
